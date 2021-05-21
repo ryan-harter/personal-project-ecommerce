@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+# Personal Project - Nerdy E-commerce site
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## MVP
 
-## Available Scripts
+- users should be able to find products
+- users should be able to purchase products - stripe? - 
+- users should be able to register, login, delete, logout of an account - done
+- users should be able to have a cart - frontend doneish
+- users should be able to add items to a wishlist
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## ICEBOX
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- admin can add items to store
+- users should be able to post an item for sale on the stores marketplace
+- share products - sms, email, socials
+- fully responsive design, mobile and desktop
+- contact us form
+- product ratings/reviews
+- products users put up for sale can be set price or auction with time limit
+- live stream data / May be better to do user messaging? message boards where people can arrange barter/trade of items/services.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- axios
+- express
+- massive
+- express-session
+- redux 
+- react-redux 
+- redux-promise-middleware
+- redux devtools
+- react-router-dom
+- bcryptjs
+- dotenv
+- stripe?
+- socketio?
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Tables 
+products
+```SQL
+  create table products(
+    product_id serial primary key not null,
+    price decimal not null, 
+    description varchar(1000) not null,
+    name varchar(100) not null
+  );
+```
+users
+```SQL
+  create table users(
+    user_id serial primary key not null,
+    email varchar(100) not null,
+    password varchar(1000) not null
+  );
+```
+<!-- tags
+```SQL
+  create table tags(
+    tag_id serial primary key not null,
+    tag_name varchar(100)
+     
+  )
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+product_tags
+```SQL
+  create table product_tags(
+    product_tags_id serial primary key not null,
+    product_id references products(product_id),
+    tag_id references tags(tag_id)
+  )
+``` -->
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+product_images
+```SQL
+  create table product_images(
+    product_images_id serial primary key not null,
+    product_id references products(product_id),
+    url text not null
+  );
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+categories
+```SQL
+create table categories(
+  id serial primary key not null,
+  category_name varchar(100)
+);
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+products_categories
+```SQL
+create table products_cataegories(
+  products_categories id serial primary key not null,
+  product_id references products(product_id),
+  category_id references categories(category_id)
+);
+```
 
-## Learn More
+wishlists
+```SQL
+create table wishlists(
+  wishlist_id serial primary key not null,
+  user_id references user(user_id)
+  name varchar(100)
+);
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+wishlists_products
+```SQL
+create table wishlists_products(
+  wishlists_products_id serial primary key,
+  product_id references products(product_id),
+  qty int
+);
+```

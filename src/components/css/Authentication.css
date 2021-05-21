@@ -1,0 +1,33 @@
+#authentication{
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px red solid;
+  size: border-box;
+}
+
+#authentication-box{
+  width: 75vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px black solid;
+  padding: 20px;
+  size: border-box;
+
+}
+
+#authentication-box input{
+  margin: 20px;
+  height: 35px;
+  width: 80%;
+
+}
+
+#authentication-box button{
+  width: 40%;
+  
+}
