@@ -36,9 +36,9 @@ function AccountView(props) {
 
   return (
     <div id="account-view">
-      <Link to ="/wishlists">Your Wishlists</Link>
+      <Link className='links' to ="/wishlists">View Your Wishlist</Link>
       <h3>Email: {props.user.email}</h3>
-      {editing ?(
+      {/* {editing ?(
         <div id="editing">
           <h3>Are you sure you wish to change your password?</h3>
           <input placeholder="new password"/>
@@ -48,7 +48,7 @@ function AccountView(props) {
         </div>
       ):
       <button onClick={handleEditing}>Change Password</button>
-      }
+      } */}
       
 
 

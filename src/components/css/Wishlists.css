@@ -1,0 +1,21 @@
+#wishlist_page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(72, 65, 65);
+}
+
+@media screen and (min-width: 600px) {
+  #wishlist_page{
+    
+    display: flex;
+    flex-direction: column;
+  }
+
+  #wishlist_products{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 30px;
+  }
+}

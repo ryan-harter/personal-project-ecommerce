@@ -1,11 +1,11 @@
 #authentication{
-  height: 40vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  border: 1px red solid;
   size: border-box;
+  background-color: rgb(72, 65, 65);
 }
 
 #authentication-box{
@@ -17,6 +17,14 @@
   border: 1px black solid;
   padding: 20px;
   size: border-box;
+  box-shadow: 2px 2px 2px 1px lightslategray;
+  border-radius: 15%;
+  background-color: #435C7D ;
+
+}
+
+#authentication h2{
+  color: white;
 
 }
 
@@ -24,10 +32,17 @@
   margin: 20px;
   height: 35px;
   width: 80%;
+  border-radius: 50px;
 
 }
 
 #authentication-box button{
   width: 40%;
+  border-radius: 50px;
+  background-color: #91ACC7 ;
   
+}
+
+button:hover{
+  transform: scale(1.1);
 }

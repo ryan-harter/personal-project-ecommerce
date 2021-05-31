@@ -1,7 +1,9 @@
 #header-section{
-  border: 1px red solid;
-  margin-bottom: 50px;
+  border: 1px #938EC5 solid;
   width: 100vw;
+  background-color: #435C7D;
+  /* background: rgb(34,27,47);
+  background: linear-gradient(20deg, rgba(34,27,47,1) 5%, rgba(147,142,197,1) 65%, rgba(241,241,243,1) 100%); */
 }
 
 #header {
@@ -9,11 +11,13 @@
   justify-content: space-between;
   width: 100%;
   height: 5vh;
-  border: 1px blue solid
 }
 
 #header input{
   width: 60%;
+  border-radius: 50px;
+  background-color: white;
+  margin-bottom: 10px;
 }
 
 #website-name{
@@ -22,14 +26,55 @@
 }
  
 #hamburger-icon{
-  width: 40px;
+  margin-top: 5px;
+  margin-left: 3px;
   position: relative;
+  width: 50px;
+  height: 6px;
+  background-color: white;
+  border-radius: 5px;
+  transition: all .5s ease-in-out;
 }
+
+#hamburger-icon::before, #hamburger-icon::after{
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 6px;
+  background-color: white;
+  border-radius: 5px;
+  transition: all .5s ease-in-out;
+}
+
+#hamburger-icon::before{
+  transform: translateY(-16px);
+}
+
+#hamburger-icon::after{
+  transform: translateY(16px);
+}
+
 
 #cart{
   width: 50px;
   height: 30px;
-  margin-top: 3px;
-  margin-right: 2px;
+  margin-right: 3px;
+  border-radius: 50px;
+  background-color: #91ACC7;
 }
 
+/* ANIMATION */
+#hamburger-icon.open {
+  transform: translateX(-50px);
+  background: transparent;
+  box-shadow: none;
+}
+#hamburger-icon.open::before {
+  transform: rotate(45deg) translate(35px, -35px);
+}
+#hamburger-icon.open::after {
+  transform: rotate(-45deg) translate(35px, 35px);
+}
+button:hover{
+  transform: scale(1.1);
+}

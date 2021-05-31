@@ -6,7 +6,8 @@ const cors = require("cors")
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 const authCtrl = require('./controllers/authCtrl')
 const productCtrl = require('./controllers/productCtrl')
-
+const wishlistCtrl = require('./controllers/wishlistCtrl')
+const {v4: uuidv4} = require("uuid")
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
 
 const app = express()
@@ -49,28 +50,48 @@ app.get('/api/product/:id', productCtrl.getProduct)
 
 
 //wishlist Endpoints?
+app.post('/api/wishlist', wishlistCtrl.addToWishlist) 
+app.delete('/api/wishlist/:id', wishlistCtrl.deleteFromWishlist) 
+app.get('/api/wishlist', wishlistCtrl.getWishlist)
 
 // stripe endpoints
-app.post("/payment", cors(), async (req,res)=>{
-  let {amount, id} = req.body
+app.post("/checkout", async (req,res)=>{
+  //console.log("request", req.body)
+
+  let error;
+  let status;
+
   try{
-    const payment = await strip.paymentIntents.create({
-      amount,
-      currency: "USD",
-      description: "",
-      payment_method: id,
-      confirm: true
+    const { cartProducts, token } = req.body
+    const customer = await
+    stripe.customers.create({
+      email: token.email,
+      source: token.id
+    }); 
+
+    const idempotency_key = uuidv4();
+    const charge = await stripe.charges.create({
+      amount: cartProducts.reduce((total, object) => Number(object.price) + total,0) * 100,
+      currency: "usd",
+      customer: customer.id,
+      receipt_email: token.email,
+      description: `Purchased the ${cartProducts[0].name}`,
+      shipping: {
+        name: token.card.name,
+        address: {
+          line1: token.card.address_line1,
+          line2: token.card.address_line2,
+          city: token.card.address_city, 
+          country: token.card.address_country,
+          postal_code: token.card.address_zip 
+        }
+      }
     })
-    console.log("Payment", payment)
-    res.json({
-      message: "Payment successful",
-      success: true
-    })
-  }catch (error){
-    console.log("error", error)
-    res.json({
-      message: "Payment Failed",
-      success: false
-    })
+    //console.log("charge:", {charge})
+    status = "success"
+  }catch (err) {
+    console.error("error:", err)
+    status = "failure"
   }
+  res.json({error, status})
 })

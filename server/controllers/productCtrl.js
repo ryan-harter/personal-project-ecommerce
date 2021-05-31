@@ -15,7 +15,6 @@ module.exports = {
         return res.sendStatus(500)
     }
 
-
     // const product = await db.products.get_product({id}).then( product => {
     //   res.status(200).send(product)
     
@@ -27,16 +26,28 @@ module.exports = {
   },
   getAllProducts: async (req, res) =>{
     const db = req.app.get('db')
+    const { product_ids } = req.query
+    let products = []
 
-    const products = await db.products.get_all_products()
+    if (product_ids){
+      
+      const productIdsArray = product_ids.split(',')
+      for (let i = 0; i < productIdsArray.length; i++){
+        
+        const [product] = await db.products.get_specific_product({productId: productIdsArray[i]})
+
+        products.push(product)
+      }
+      
+            
+      return res.json(products)
+    }
+
+    products = await db.products.get_all_products()
 
     res.status(200).send(products)
   },
-  searchProducts: async (req, res) =>{
-    const db = req.app.get('db')
-    
-    
-  }
+  
   
 
 }

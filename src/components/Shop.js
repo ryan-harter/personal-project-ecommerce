@@ -3,7 +3,7 @@ import React, { useState, useEffect} from 'react'
 import './css/Shop.css'
 import ProductCard from './ProductCard'
 
-export default function Shop() {
+export default function Shop(props) {
   const [shopProducts, setShopProducts] = useState([])
 
   useEffect(() => {
@@ -20,10 +20,12 @@ export default function Shop() {
 
   return (
     <div id='shop'>
-      Shop JS
-      {console.log(mappedProducts)}
-      {mappedProducts}
-     
+      
+      <h2>Shop</h2>
+      <div id='shop_products'>
+        {mappedProducts}
+      </div>
+       
       
     </div>
   )

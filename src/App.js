@@ -6,8 +6,6 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      <div className="star">
-      </div>
       {routes}
     </div>
   );

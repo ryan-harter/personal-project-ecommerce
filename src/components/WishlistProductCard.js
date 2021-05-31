@@ -3,9 +3,9 @@ import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {updateCart} from '../redux/cartReducer'
-import { addToWishlist } from '../redux/userReducer'
+import { addToWishlist, removeFromWishlist } from '../redux/userReducer'
 
-function CartProduct(props) {
+function WishlistProductCard(props) {
   
 
   return (
@@ -26,12 +26,12 @@ function CartProduct(props) {
       <div id="product_info">
         <h4>{props.product.name}</h4>
         <p>{props.product.description}</p>
-        <p>${parseFloat(props.product.price)}</p>
-        <p>Qty: {props.qty}</p>
         <div id="to_cart">
+          <p>${parseFloat(props.product.price)}</p>
+          
           <button onClick={() => props.updateCart(props.product.product_id, 1)}>+Cart</button>
           <button onClick={() => props.updateCart(props.product.product_id, -1)}>-Cart</button>
-          <button onClick={() => props.addToWishlist(props.product.product_id, 1)}>+Wishlist</button>
+          <button onClick={() => props.removeFromWishlist(props.product.product_id)}>-Wishlist</button>
         </div>
         
       </div>
@@ -45,7 +45,7 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = {
   updateCart: updateCart,
-  addToWishlist: addToWishlist
+  removeFromWishlist: removeFromWishlist
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(WishlistProductCard)

@@ -13,20 +13,24 @@ module.exports = {
         return;
       }
 
+      
+
       const salt = bcrypt.genSaltSync(5)
       const hash = bcrypt.hashSync(password, salt);
 
       let [newUser] = await db.auth.register_user({ email, hash })
-      
 
       if(newUser){
         delete newUser.hash;
-        req.session.user = { ...newUser };
+        const wishlist = await db.wishlist.create_wishlist({ user_id: newUser.user_id })
+        
+        req.session.user = { ...newUser, wishlist };
         res.status(201).send(newUser)
         return;
       }
       
     } catch(err){
+      console.log(err)
       res.sendStatus(500);
       return;
     }
@@ -35,6 +39,7 @@ module.exports = {
   login: async (req, res) => {
     const db = req.app.get('db')
     const { email, password } = req.body
+    const { user_id } = req.session
 
     let [ existingUser ] = await db.auth.check_for_user({ email });
 
@@ -46,8 +51,9 @@ module.exports = {
     const authenticated = bcrypt.compareSync(password, existingUser.hash)
 
     if(authenticated){
+      let wishlist = await db.wishlist.get_wishlist({user_id})
       delete existingUser.hash;
-      req.session.user = {...existingUser };
+      req.session.user = {...existingUser, wishlist };
       res.status(200).send(req.session.user)
       return;
     }

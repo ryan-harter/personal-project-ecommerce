@@ -1,7 +1,43 @@
 #item_page {
   width: 100vw;
+  height: 100vh;
+  background-color: rgb(72,65,65);
+  display: flex;
+  flex-direction: column;
+}
+
+#item_page h2{
+  color: white;
+}
+
+#item_page p{
+  color: white;
 }
 
 #item_image{
   width: 100vw;
+  
+}
+
+@media screen and (min-width: 600px){
+  #item_image{
+    width: 100vw;
+    height: 70vh;
+  }
+
+
+  #item_page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  #item_info{
+    font-size: larger;
+  }
+
+  
 }

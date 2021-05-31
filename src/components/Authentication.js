@@ -21,8 +21,8 @@ function Authentication(props) {
   function login(){
     axios.post('/api/auth/login', {email, password})
     .then(res => {
-      console.log(props.history)
-      props.history.push('/') 
+      
+      props.history.push('/shop') 
       props.updateUser(res.data)
       
       
@@ -32,14 +32,14 @@ function Authentication(props) {
   function register(){
     axios.post('/api/auth/register', {email, password})
     .then(res => {
-      props.history.push('/')
+      props.history.push('/shop')
       props.updateUser(res.data)
     })
   }
 
   return (
     <div id = "authentication">
-      <h1>Sign In</h1>
+      <h2>Sign In</h2>
       <section id = "authentication-box">
         
         <input placeholder="Email" value={email} onChange={e => handleChange('email', e.target.value)}/>

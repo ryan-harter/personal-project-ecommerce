@@ -4,11 +4,13 @@
   display: flex;
   flex-direction: column ;
   align-items: center;
-  background-color: rgb(160, 157, 157);
+  background-color: #435C7D;
   opacity: .9;
   position: absolute;
+  transition: all;
 }
 
 .links {
   margin-top: 40px;
+  color: white;
 }

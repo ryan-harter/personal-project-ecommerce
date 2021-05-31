@@ -1,5 +1,3 @@
-import axios from "axios"
-
 const initialState = {
   cart: { }
 }
@@ -7,9 +5,6 @@ const initialState = {
 const UPDATE_CART = "UPDATE_CART"
 
 export function updateCart(product_id, qty){
-
-  
-
   return {
     type: UPDATE_CART,
     payload: {product_id, qty}
@@ -40,6 +35,7 @@ export default function cartReducer(state = initialState, action){
 
   switch(type){
     case UPDATE_CART:
+      console.log(payload)
       return handleModifyCart(state, payload)
     default:
       return state

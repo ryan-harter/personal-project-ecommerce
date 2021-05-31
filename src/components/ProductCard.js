@@ -3,13 +3,12 @@ import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {updateCart} from '../redux/cartReducer'
+import { addToWishlist } from '../redux/userReducer'
 
 function ProductCard(props) {
-  
-
-
-  
-
+  useEffect(() =>{
+    console.log(props.cart)
+  }, [props.cart])
   return (
     
     <section id="product_card">
@@ -26,13 +25,18 @@ function ProductCard(props) {
         
       </div>
       <div id="product_info">
-        <h2>{props.product.name}</h2>
+        <h4>{props.product.name}</h4>
         <p>{props.product.description}</p>
+        <p>${props.product.price}</p>
         <div id="to_cart">
-          <p>${props.product.price}</p>
-          <button onClick={() => props.updateCart(props.product.product_id, 1)}>Add To Cart</button>
-          <button onClick={() => props.updateCart(props.product.product_id, -1)}>Remove From Cart</button>
-          <button>Add To Wishlist</button>
+          
+          <button onClick={() => props.updateCart(props.product.product_id, 1)}>+ Cart</button>
+          {/* {props.cart.hasOwnProperty(props.product.product_id) ? (
+            
+          ): <p>not in cart</p>} */}
+          <button onClick={() => props.updateCart(props.product.product_id, -1)}>- Cart</button>
+          
+          <button onClick={() => props.addToWishlist(props.product.product_id, 1)}>+ Wishlist</button>
         </div>
         
       </div>
@@ -45,7 +49,8 @@ function mapStateToProps(state){
 }
 
 const mapDispatchToProps = {
-  updateCart: updateCart
+  updateCart: updateCart,
+  addToWishlist: addToWishlist
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
