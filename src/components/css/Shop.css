@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  width: 100vw;
+  min-width: 100vw;
   background-color:rgb(72, 65, 65);
   /* background: rgb(34,27,47);
   background: linear-gradient(260deg, rgba(34,27,47,1) 5%, rgba(147,142,197,1) 65%, rgba(241,241,243,1) 100%); */
@@ -11,13 +11,29 @@
 
 #shop h2{
   color: white;
+  margin-bottom: 20px;
 }
 
-@media screen and (min-width: 600px) {
+
+#shop::-webkit-scrollbar {
+	width: 8px;
+}
+#shop::-webkit-scrollbar-track {
+	background: #c1c0c0;
+}
+#shop::-webkit-scrollbar-thumb {
+	background: #828282;
+}
+#shop::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+@media screen and (min-width: 768px) {
   #shop{
     
     display: flex;
     flex-direction: column;
+    
   }
 
   #shop_products{

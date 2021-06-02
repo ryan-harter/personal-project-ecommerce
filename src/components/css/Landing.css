@@ -1,21 +1,97 @@
-#landing-page {
-  width: 100%;
+#landing_page {
+  min-width: 100vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   background-color: rgb(72, 65, 65);
 }
 
-#landing-page h1{
-  margin-top: 40px;
+#landing_page h1{
+  margin-top: 20px;
+  color: white;
+  
 }
 
-.category-card {
-  height: 15vh;
-  width: 75%;
-  border: 2px black solid;
-  margin-bottom: 20px;
+#enter_store{
+  width: 200px;
+  height: 40px;
+  font-size: larger;
+}
+
+
+#text{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+#landing_card{
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: 630px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 1px gray;
+  background-color: #435C7D;
+  /* background-image: url(https://images-na.ssl-images-amazon.com/images/I/71ccPZ5%2BJzL._AC_SL1039_.jpg), url(https://images-na.ssl-images-amazon.com/images/I/51-jt7ZQI%2BL._AC_.jpg);
+  background-repeat: no-repeat; */
+  transition: ease-in-out 1s;
+}
+
+#landing_card:hover{
+  transform:scale(1.1)
+}
+
+
+@keyframes FadeInOut {
+  /* 0% {opacity:1;}
+  25% {opacity:.75;}
+  50% {opacity:.5;}
+  100% {opacity:.2;} */
+  0% {
+    opacity:1;
+  }
+  45% {
+  opacity:1;
+  }
+  55% {
+  opacity:0;
+  }
+  100% {
+  opacity:0;
+  }
+  
+}
+
+.images{
+  position:relative;
+  height: 100%;
+  width: 100%;
+}
+
+.images img{
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+  
+}
+
+img.top{
+
+  -webkit-animation-name: FadeInOut;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 10s;
+  -webkit-animation-direction: alternate;
 }

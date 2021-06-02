@@ -3,9 +3,9 @@
 ## MVP
 
 - users should be able to find products
-- users should be able to purchase products - stripe? - 
+- users should be able to purchase products 
 - users should be able to register, login, delete, logout of an account - done
-- users should be able to have a cart - frontend doneish
+- users should be able to have a cart 
 - users should be able to add items to a wishlist
 
 
@@ -37,8 +37,8 @@
 - react-router-dom
 - bcryptjs
 - dotenv
-- stripe?
-- socketio?
+- stripe
+- nodemailer
 
 
 ### Tables 

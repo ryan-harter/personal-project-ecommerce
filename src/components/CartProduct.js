@@ -26,7 +26,7 @@ function CartProduct(props) {
       <div id="product_info">
         <h4>{props.product.name}</h4>
         <p>{props.product.description}</p>
-        <p>${parseFloat(props.product.price)}</p>
+        <p>${parseFloat(props.product.price) * props.qty}</p>
         <p>Qty: {props.qty}</p>
         <div id="to_cart">
           <button onClick={() => props.updateCart(props.product.product_id, 1)}>+Cart</button>

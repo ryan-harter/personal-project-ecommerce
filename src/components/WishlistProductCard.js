@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {updateCart} from '../redux/cartReducer'
 import { addToWishlist, removeFromWishlist } from '../redux/userReducer'
+import { toast } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 
+
+toast.configure()
 function WishlistProductCard(props) {
   
 
@@ -26,12 +30,13 @@ function WishlistProductCard(props) {
       <div id="product_info">
         <h4>{props.product.name}</h4>
         <p>{props.product.description}</p>
+        <p>${parseFloat(props.product.price)}</p>
         <div id="to_cart">
-          <p>${parseFloat(props.product.price)}</p>
           
-          <button onClick={() => props.updateCart(props.product.product_id, 1)}>+Cart</button>
-          <button onClick={() => props.updateCart(props.product.product_id, -1)}>-Cart</button>
-          <button onClick={() => props.removeFromWishlist(props.product.product_id)}>-Wishlist</button>
+          
+          <button onClick={() =>{props.updateCart(props.product.product_id, 1)}}>+Cart</button>
+          {/* <button onClick={() => props.updateCart(props.product.product_id, -1)}>-Cart</button> */}
+          <button onClick={() => {props.removeFromWishlist(props.product.product_id); toast.success(`${props.product.name} removed from wishlist`)}}>-Wishlist</button>
         </div>
         
       </div>

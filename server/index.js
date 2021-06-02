@@ -1,4 +1,5 @@
 require('dotenv').config()
+const nodemailer = require('nodemailer')
 const express = require('express')
 const massive = require('massive')
 const session = require('express-session')
@@ -8,7 +9,8 @@ const authCtrl = require('./controllers/authCtrl')
 const productCtrl = require('./controllers/productCtrl')
 const wishlistCtrl = require('./controllers/wishlistCtrl')
 const {v4: uuidv4} = require("uuid")
-const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
+const path = require('path')
+const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, EMAIL_PASSWORD, EMAIL} = process.env
 
 const app = express()
 
@@ -49,20 +51,51 @@ app.get('/api/products', productCtrl.getAllProducts)
 app.get('/api/product/:id', productCtrl.getProduct)
 
 
-//wishlist Endpoints?
+//wishlist Endpoints
 app.post('/api/wishlist', wishlistCtrl.addToWishlist) 
 app.delete('/api/wishlist/:id', wishlistCtrl.deleteFromWishlist) 
 app.get('/api/wishlist', wishlistCtrl.getWishlist)
 
+//nodemailer endpoints
+app.post('/send', function(req, res, next) {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: EMAIL,
+      pass: EMAIL_PASSWORD
+    }
+  })
+  const mailOptions = {
+    from: EMAIL,
+    to: `${req.body.destinationEmail}`,
+    subject: `${req.body.name}`,
+    text: `${req.body.message}`,
+    replyTo: EMAIL
+  }
+  transporter.sendMail(mailOptions, function(err, res) {
+    if (err) {
+      console.error('there was an error: ', err);
+      res.json({err})
+    } else {
+      console.log('here is the res: ', res)
+      
+    }
+    
+  })
+  res.json({res})
+})
+
+
+
 // stripe endpoints
 app.post("/checkout", async (req,res)=>{
-  //console.log("request", req.body)
+  console.log("request", req.body)
 
   let error;
   let status;
 
   try{
-    const { cartProducts, token } = req.body
+    const { cartProducts, token, finalTotal } = req.body
     const customer = await
     stripe.customers.create({
       email: token.email,
@@ -71,7 +104,7 @@ app.post("/checkout", async (req,res)=>{
 
     const idempotency_key = uuidv4();
     const charge = await stripe.charges.create({
-      amount: cartProducts.reduce((total, object) => Number(object.price) + total,0) * 100,
+      amount: finalTotal.toFixed(2) * 100,
       currency: "usd",
       customer: customer.id,
       receipt_email: token.email,

@@ -26,20 +26,25 @@ module.exports = {
   },
   getAllProducts: async (req, res) =>{
     const db = req.app.get('db')
-    const { product_ids } = req.query
+    const { product_ids, search_term } = req.query
     let products = []
 
     if (product_ids){
-      
       const productIdsArray = product_ids.split(',')
       for (let i = 0; i < productIdsArray.length; i++){
         
         const [product] = await db.products.get_specific_product({productId: productIdsArray[i]})
 
         products.push(product)
-      }
+      }      
+      return res.json(products)
+    }
+
+    if( search_term ){
       
-            
+      const searchProducts = await db.products.get_products_by_name({search_term})
+      products = searchProducts
+      
       return res.json(products)
     }
 

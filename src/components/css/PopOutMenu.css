@@ -1,16 +1,26 @@
 #pop-out-menu{
   width: 50vw;
-  height: 100vh;
+  height: 25vh;
   display: flex;
   flex-direction: column ;
   align-items: center;
   background-color: #435C7D;
   opacity: .9;
   position: absolute;
-  transition: all;
+  transition: all ease-in-out 1s;
 }
 
 .links {
+  font-size: larger;
   margin-top: 40px;
   color: white;
+}
+
+@media screen and (min-width: 768px){
+  #pop-out-menu{
+    display: flex;
+    height: 10vh;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }

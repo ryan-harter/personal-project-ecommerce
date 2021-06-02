@@ -1,4 +1,6 @@
 import axios from "axios"
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 
 const initialState = {
@@ -12,10 +14,10 @@ const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST'
 const REMOVE_FROM_WISHLIST= 'REMOVE_FROM_WISHLIST'
 
 
-
+toast.configure()
 
 export function addToWishlist(product_id, qty){
-  console.log(product_id)
+  
   return {
     type: ADD_TO_WISHLIST,
     payload: axios.post('/api/wishlist', {product_id})
@@ -25,10 +27,14 @@ export function addToWishlist(product_id, qty){
 function handleModifyWishlist(state, payload){
   
   let {product_id} = payload.data[1]
-  console.log(product_id)
+  
   let newState = {...state}
   
-  
+  if(payload.status === 200){
+    toast.success('Product added to wishlist')
+  }else{
+    toast.error('Product not added, please be sure you are signed in')
+  }
   return newState
 }
 
@@ -63,7 +69,8 @@ export default function userReducer(state = initialState, action){
     case ADD_TO_WISHLIST + "_FULFILLED":
       console.log(payload)
       return handleModifyWishlist(state, payload)
-    case REMOVE_FROM_WISHLIST:
+    case REMOVE_FROM_WISHLIST +"_FULFILLED":
+      console.log(payload)
       return {...state, wishlist: payload}
     case LOGOUT:
       return {...state, email: ''};

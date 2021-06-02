@@ -5,4 +5,5 @@ left join product_categories
 on product_categories.product_id = products.product_id
 left join categories
 on categories.category_id = product_categories.category_id
-where products.name like '%z%';
+where lower(products.description) like '%'||${search_term}||'%'
+or lower(products.name) like '%'||${search_term}||'%';

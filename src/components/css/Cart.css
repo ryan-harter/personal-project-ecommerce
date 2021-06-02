@@ -1,6 +1,6 @@
 #cart-view {
   background-color: rgb(72, 65, 65);
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -11,3 +11,19 @@
   color: white;
 }
 
+@media screen and (min-width: 768px) {
+  #cart-view{
+    
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  #cart-products{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 30px;
+  }
+}

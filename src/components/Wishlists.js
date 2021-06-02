@@ -11,32 +11,24 @@ function Wishlists(props) {
   const [wishlistProducts, setWishlistProducts] = useState([])
 
 
-  async function getWishlistProductIds(){
+  function getWishlistProductIds(){
     
     let productIds = [];
 
-    const wishlistProducts = await axios.get('/api/wishlist') 
+    axios.get('/api/wishlist').then(res =>{
+      setWishlistProducts(res.data)
+    })
 
-    console.log(wishlistProducts.data)
+    // console.log(wishlistProducts)
 
-    setWishlistProducts(wishlistProducts.data)
-
-    // for (const key in props.wishlist.wishlist){
-    //   console.log({wishlist: props.wishlist.wishlist[key]})
-    //   productIds.push(key)
-    // }
-    // axios.get(`/api/products?product_ids=${productIds}`).then(res =>{
-    //   setWishlistProducts(res.data)
-      
-    //   console.log(wishlistProducts)
-    // })
    }
 
    useEffect(() =>{
      getWishlistProductIds()
-   }, [])
+   }, [wishlistProducts]) // mem leak?
 
    const mappedWishlist = wishlistProducts.map((e,i) => {
+
      return <WishlistProductCard product = {e} key = {i}/>
    })
 

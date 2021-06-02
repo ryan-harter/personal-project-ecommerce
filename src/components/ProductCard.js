@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {updateCart} from '../redux/cartReducer'
 import { addToWishlist } from '../redux/userReducer'
+import { toast } from 'react-toastify'
+
+import "react-toastify/dist/ReactToastify.css"
 
 function ProductCard(props) {
   useEffect(() =>{
-    console.log(props.cart)
+    
   }, [props.cart])
   return (
     
@@ -30,13 +33,13 @@ function ProductCard(props) {
         <p>${props.product.price}</p>
         <div id="to_cart">
           
-          <button onClick={() => props.updateCart(props.product.product_id, 1)}>+ Cart</button>
+          <button onClick={() => {props.updateCart(props.product.product_id, 1)}}>+ Cart</button>
           {/* {props.cart.hasOwnProperty(props.product.product_id) ? (
-            
+            <button onClick={() => {props.updateCart(props.product.product_id, -1); toast.success(`${props.product.name} removed from cart`)}}>- Cart</button>
           ): <p>not in cart</p>} */}
-          <button onClick={() => props.updateCart(props.product.product_id, -1)}>- Cart</button>
           
-          <button onClick={() => props.addToWishlist(props.product.product_id, 1)}>+ Wishlist</button>
+          
+          <button onClick={() => {props.addToWishlist(props.product.product_id, 1)}}>+ Wishlist</button>
         </div>
         
       </div>

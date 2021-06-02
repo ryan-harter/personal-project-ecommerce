@@ -1,8 +1,12 @@
+
+import { toast } from "react-toastify"
+toast.configure()
 const initialState = {
   cart: { }
 }
 
 const UPDATE_CART = "UPDATE_CART"
+const RESET_CART = "RESET_CART"
 
 export function updateCart(product_id, qty){
   return {
@@ -20,12 +24,21 @@ function handleModifyCart(state, payload){
     
 
   } else{
+    toast.success('Item added to cart')
     newState.cart[product_id] = {qty}
   }
   if (newState.cart[product_id].qty <= 0){
+    toast.success('Item removed from cart')
       delete newState.cart[product_id]
   }
   return newState
+}
+
+export function resetCart(){
+  return{
+    type: RESET_CART,
+    
+  }
 }
 
 
@@ -37,6 +50,8 @@ export default function cartReducer(state = initialState, action){
     case UPDATE_CART:
       console.log(payload)
       return handleModifyCart(state, payload)
+    case RESET_CART:
+      return {...state, cart: {}}
     default:
       return state
   }

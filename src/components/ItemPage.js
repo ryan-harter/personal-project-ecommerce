@@ -20,7 +20,7 @@ function ItemPage(props) {
         <p>{description}</p>
         <p>${price}</p>
         <button onClick={() => props.updateCart(props.location.state.product.product_id, 1)}>Add To Cart</button>
-        <button onClick={() => props.updateCart(props.location.state.product.product_id, -1)}>Remove From Cart</button>
+        {/* <button onClick={() => props.updateCart(props.location.state.product.product_id, -1)}>Remove From Cart</button> */}
         <button onClick={() => props.addToWishlist(props.location.state.product.product_id, 1)}>Add to Wishlist</button>
       </div>
 

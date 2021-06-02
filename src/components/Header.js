@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import PopOutMenu from './PopOutMenu'
 import { Link } from 'react-router-dom'
 import './css/Header.css'
+import axios from 'axios'
 
 
-export default function Header() {
+export default function Header(props) {
   const [navOverlay, setNavOverlay] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -15,10 +16,11 @@ export default function Header() {
     }
   }
 
-  function handleSearch(e){
+  
+  function handleSearchTerm(e){
     setSearchTerm(e.target.value)
+    
   }
-
   
   return (
     <section id='header-section'>
@@ -26,8 +28,19 @@ export default function Header() {
       <div id ='header'>
         {renderPopOut()}
         <div id = "hamburger-icon" className={`${navOverlay ? "open" : "closed"}`} onClick={() => setNavOverlay(!navOverlay)}></div>
-        {/* <img id="hamburger-icon" src="https://paragondigital.com/wp-content/uploads/Menu-Icon2.jpg" alt="Hamburger Menu" onClick={() => setNavOverlay(!navOverlay)} /> */}
-        <input onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search for..."/>
+        <span>
+          <input onChange={(e) => handleSearchTerm(e)} placeholder="Search for a product.."/>
+          <Link to ={{
+            pathname: "/shop",
+            state: {
+              searchTerm: searchTerm
+            }
+          }} replace>
+            <button onClick={() => setSearchTerm("")}>Search</button>
+          </Link>
+        </span>
+        
+        
         <Link to="/cart">
           <button id="cart">Cart</button>
         </Link>
